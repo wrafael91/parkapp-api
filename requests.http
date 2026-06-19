@@ -1,0 +1,102 @@
+### ========================================
+### Auth — ParkApp API
+### ========================================
+### Instrucciones:
+### 1. Instalá la extensión "REST Client" en VS Code
+### 2. Hacé click en "Send Request" arriba de cada bloque
+### 3. Primero ejecutá el Login, copiá el token y pegalo en @token
+
+@host = http://localhost:3000
+@token = ACÁ_PEGÁ_TU_TOKEN
+
+### -----------------------------------------
+### 1. Login (admin)
+### -----------------------------------------
+
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### -----------------------------------------
+### 2. Login — password incorrecto (401)
+### -----------------------------------------
+
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "incorrecta"
+}
+
+### -----------------------------------------
+### 3. Login — campos vacíos (400)
+### -----------------------------------------
+
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+}
+
+### -----------------------------------------
+### 4. Register — sin token (401)
+### -----------------------------------------
+
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "operador1",
+  "password": "op123"
+}
+
+### -----------------------------------------
+### 5. Register — con token admin (201)
+### -----------------------------------------
+
+POST {{host}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "operador1",
+  "password": "op123"
+}
+
+### -----------------------------------------
+### 6. Register — username duplicado (409)
+### -----------------------------------------
+
+POST {{host}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "operador1",
+  "password": "op123"
+}
+
+### -----------------------------------------
+### 7. Register — role inválido (400)
+### -----------------------------------------
+
+POST {{host}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "otro",
+  "password": "123",
+  "role": "superadmin"
+}
+
+### -----------------------------------------
+### 8. Health check
+### -----------------------------------------
+
+GET {{host}}/health
