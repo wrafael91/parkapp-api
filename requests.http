@@ -438,3 +438,123 @@ Authorization: Bearer {{token}}
 
 GET {{host}}/passes
 Authorization: Bearer {{token}}
+
+### ========================================
+### Parking (Entry / Exit) — ParkApp API
+### ========================================
+### IMPORTANTE: Para probar el flujo completo:
+### 1. Primero creá un vehículo (test 9)
+### 2. Ejecutá entry (test 37)
+### 3. Verificá los espacios (test 18)
+### 4. Ejecutá exit (test 40)
+
+### -----------------------------------------
+### 37. Entry — asignar espacio automático (201)
+### -----------------------------------------
+
+POST {{host}}/parking/entry
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1
+}
+
+### -----------------------------------------
+### 38. Entry — asignar espacio específico (201)
+### -----------------------------------------
+
+POST {{host}}/parking/entry
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 2,
+  "space_id": 10
+}
+
+### -----------------------------------------
+### 39. Entry — vehículo ya parqueado (409)
+### -----------------------------------------
+
+POST {{host}}/parking/entry
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1
+}
+
+### -----------------------------------------
+### 40. Entry — vehículo inexistente (404)
+### -----------------------------------------
+
+POST {{host}}/parking/entry
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 9999
+}
+
+### -----------------------------------------
+### 41. Entry — espacio ocupado (409)
+### -----------------------------------------
+
+POST {{host}}/parking/entry
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 3,
+  "space_id": 1
+}
+
+### -----------------------------------------
+### 42. Entry — sin token (401)
+### -----------------------------------------
+
+POST {{host}}/parking/entry
+Content-Type: application/json
+
+{
+  "vehicle_id": 1
+}
+
+### -----------------------------------------
+### 43. Exit — salida normal con cobro (200)
+### -----------------------------------------
+
+POST {{host}}/parking/exit
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1
+}
+
+### -----------------------------------------
+### 44. Exit — vehículo no está parqueado (404)
+### -----------------------------------------
+
+POST {{host}}/parking/exit
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1
+}
+
+### -----------------------------------------
+### 45. Exit — vehículo con mensualidad (sin cobro)
+### -----------------------------------------
+### Para probar: creá una mensualidad (test 31) para el vehículo,
+### luego hacé entry (test 37), y después este exit.
+
+POST {{host}}/parking/exit
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1
+}
