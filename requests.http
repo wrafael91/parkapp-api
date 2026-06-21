@@ -355,3 +355,86 @@ Authorization: Bearer {{token}}
 {
   "rate_per_block": 3000
 }
+
+### ========================================
+### Passes (Mensualidades) — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 31. Crear mensualidad (201, solo admin)
+### -----------------------------------------
+
+POST {{host}}/passes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1,
+  "start_date": "2026-06-01",
+  "end_date": "2026-07-01",
+  "amount": 150000
+}
+
+### -----------------------------------------
+### 32. Crear mensualidad — vehículo inexistente (404)
+### -----------------------------------------
+
+POST {{host}}/passes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 9999,
+  "start_date": "2026-06-01",
+  "end_date": "2026-07-01",
+  "amount": 150000
+}
+
+### -----------------------------------------
+### 33. Crear mensualidad — campos faltantes (400)
+### -----------------------------------------
+
+POST {{host}}/passes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1
+}
+
+### -----------------------------------------
+### 34. Crear mensualidad — end_date antes de start_date (400)
+### -----------------------------------------
+
+POST {{host}}/passes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1,
+  "start_date": "2026-07-01",
+  "end_date": "2026-06-01",
+  "amount": 150000
+}
+
+### -----------------------------------------
+### 35. Crear mensualidad — amount negativo (400)
+### -----------------------------------------
+
+POST {{host}}/passes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "vehicle_id": 1,
+  "start_date": "2026-06-01",
+  "end_date": "2026-07-01",
+  "amount": -5000
+}
+
+### -----------------------------------------
+### 36. Listar mensualidades (200)
+### -----------------------------------------
+
+GET {{host}}/passes
+Authorization: Bearer {{token}}
