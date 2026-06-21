@@ -7,7 +7,7 @@
 ### 3. Primero ejecutá el Login, copiá el token y pegalo en @token
 
 @host = http://localhost:3000
-@token = ACÁ_PEGÁ_TU_TOKEN
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc4MjA2OTg3NywiZXhwIjoxNzgyMDk4Njc3fQ.lPhiFRnkyHweY4MIMJ5kIztfdSYnVHuDvJbWugAbB18
 
 ### -----------------------------------------
 ### 1. Login (admin)
@@ -100,3 +100,105 @@ Authorization: Bearer {{token}}
 ### -----------------------------------------
 
 GET {{host}}/health
+
+### ========================================
+### Vehicles — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 9. Crear vehículo — carro (201)
+### -----------------------------------------
+
+POST {{host}}/vehicles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate": "ABC123",
+  "type": "carro"
+}
+
+### -----------------------------------------
+### 10. Crear vehículo — moto (201)
+### -----------------------------------------
+
+POST {{host}}/vehicles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate": "DEF456",
+  "type": "moto"
+}
+
+### -----------------------------------------
+### 11. Crear vehículo — bicicleta (201)
+### -----------------------------------------
+
+POST {{host}}/vehicles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate": "BIC001",
+  "type": "bicicleta"
+}
+
+### -----------------------------------------
+### 12. Crear vehículo — placa duplicada (409)
+### -----------------------------------------
+
+POST {{host}}/vehicles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate": "ABC123",
+  "type": "moto"
+}
+
+### -----------------------------------------
+### 13. Crear vehículo — tipo inválido (400)
+### -----------------------------------------
+
+POST {{host}}/vehicles
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "plate": "XYZ999",
+  "type": "camion"
+}
+
+### -----------------------------------------
+### 14. Crear vehículo — sin token (401)
+### -----------------------------------------
+
+POST {{host}}/vehicles
+Content-Type: application/json
+
+{
+  "plate": "SIN001",
+  "type": "carro"
+}
+
+### -----------------------------------------
+### 15. Listar vehículos (200)
+### -----------------------------------------
+
+GET {{host}}/vehicles
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 16. Detalle vehículo por ID (200)
+### -----------------------------------------
+
+GET {{host}}/vehicles/1
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 17. Vehículo no encontrado (404)
+### -----------------------------------------
+
+GET {{host}}/vehicles/9999
+Authorization: Bearer {{token}}
