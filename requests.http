@@ -285,3 +285,73 @@ Authorization: Bearer {{token}}
 {
   "current_vehicle_id": 9999
 }
+
+### ========================================
+### Tariffs — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 25. Listar tarifas (200)
+### -----------------------------------------
+
+GET {{host}}/tariffs
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 26. PATCH tarifa — cambiar precio carro (200, solo admin)
+### -----------------------------------------
+
+PATCH {{host}}/tariffs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "rate_per_block": 2500
+}
+
+### -----------------------------------------
+### 27. PATCH tarifa — cambiar bloque a 20 min (200)
+### -----------------------------------------
+
+PATCH {{host}}/tariffs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "block_minutes": 20
+}
+
+### -----------------------------------------
+### 28. PATCH tarifa — sin campos (400)
+### -----------------------------------------
+
+PATCH {{host}}/tariffs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+}
+
+### -----------------------------------------
+### 29. PATCH tarifa — precio negativo (400)
+### -----------------------------------------
+
+PATCH {{host}}/tariffs/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "rate_per_block": -500
+}
+
+### -----------------------------------------
+### 30. PATCH tarifa — tarifa inexistente (404)
+### -----------------------------------------
+
+PATCH {{host}}/tariffs/9999
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "rate_per_block": 3000
+}
