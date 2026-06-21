@@ -629,3 +629,74 @@ Authorization: Bearer {{token}}
 
 GET {{host}}/reports/shift?from=invalid
 Authorization: Bearer {{token}}
+
+### ========================================
+### Settings — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 55. Ver configuración actual (200)
+### -----------------------------------------
+
+GET {{host}}/settings
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 56. Aumentar espacios a 35 (200, solo admin)
+### -----------------------------------------
+
+PATCH {{host}}/settings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "total_spaces": 35
+}
+
+### -----------------------------------------
+### 57. Reducir espacios a 25 (200, solo admin)
+### -----------------------------------------
+### Solo funciona si los espacios 26-35 están libres
+
+PATCH {{host}}/settings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "total_spaces": 25
+}
+
+### -----------------------------------------
+### 58. Restaurar a 30 espacios (200)
+### -----------------------------------------
+
+PATCH {{host}}/settings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "total_spaces": 30
+}
+
+### -----------------------------------------
+### 59. Settings — valor inválido (400)
+### -----------------------------------------
+
+PATCH {{host}}/settings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "total_spaces": -5
+}
+
+### -----------------------------------------
+### 60. Settings — sin campos (400)
+### -----------------------------------------
+
+PATCH {{host}}/settings
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+}
