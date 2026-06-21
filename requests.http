@@ -202,3 +202,86 @@ Authorization: Bearer {{token}}
 
 GET {{host}}/vehicles/9999
 Authorization: Bearer {{token}}
+
+### ========================================
+### Spaces — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 18. Listar espacios (200)
+### -----------------------------------------
+
+GET {{host}}/spaces
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 19. PATCH espacio — marcar ocupado con vehículo (200, solo admin)
+### -----------------------------------------
+
+PATCH {{host}}/spaces/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "ocupado",
+  "current_vehicle_id": 1
+}
+
+### -----------------------------------------
+### 20. PATCH espacio — liberar espacio (200, solo admin)
+### -----------------------------------------
+
+PATCH {{host}}/spaces/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "libre"
+}
+
+### -----------------------------------------
+### 21. PATCH espacio — status inválido (400)
+### -----------------------------------------
+
+PATCH {{host}}/spaces/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "reservado"
+}
+
+### -----------------------------------------
+### 22. PATCH espacio — sin campos (400)
+### -----------------------------------------
+
+PATCH {{host}}/spaces/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+}
+
+### -----------------------------------------
+### 23. PATCH espacio — espacio inexistente (404)
+### -----------------------------------------
+
+PATCH {{host}}/spaces/9999
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "libre"
+}
+
+### -----------------------------------------
+### 24. PATCH espacio — vehículo inexistente (404)
+### -----------------------------------------
+
+PATCH {{host}}/spaces/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "current_vehicle_id": 9999
+}
