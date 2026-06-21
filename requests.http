@@ -558,3 +558,49 @@ Authorization: Bearer {{token}}
 {
   "vehicle_id": 1
 }
+
+### ========================================
+### History — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 46. Historial — últimos 30 días (200)
+### -----------------------------------------
+
+GET {{host}}/history
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 47. Historial — filtro por rango de fechas
+### -----------------------------------------
+
+GET {{host}}/history?from=2026-06-01&to=2026-06-30
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 48. Historial — filtro por tipo de vehículo
+### -----------------------------------------
+
+GET {{host}}/history?vehicle_type=carro
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 49. Historial — filtro por placa
+### -----------------------------------------
+
+GET {{host}}/history?plate=ABC123
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 50. Historial — filtros combinados
+### -----------------------------------------
+
+GET {{host}}/history?from=2026-06-01&to=2026-06-30&vehicle_type=moto
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 51. Historial — tipo inválido (400)
+### -----------------------------------------
+
+GET {{host}}/history?vehicle_type=camion
+Authorization: Bearer {{token}}
