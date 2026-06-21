@@ -10,6 +10,7 @@ import parkingRoutes from "./routes/parking.routes";
 import historyRoutes from "./routes/history.routes";
 import reportRoutes from "./routes/report.routes";
 import settingsRoutes from "./routes/settings.routes";
+import { errorHandler } from "./middlewares/error";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,8 @@ app.use("/parking", parkingRoutes);
 app.use("/history", historyRoutes);
 app.use("/reports", reportRoutes);
 app.use("/settings", settingsRoutes);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
