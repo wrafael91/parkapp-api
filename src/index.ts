@@ -8,6 +8,7 @@ import tariffRoutes from "./routes/tariff.routes";
 import passRoutes from "./routes/pass.routes";
 import parkingRoutes from "./routes/parking.routes";
 import historyRoutes from "./routes/history.routes";
+import reportRoutes from "./routes/report.routes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ app.use("/tariffs", tariffRoutes);
 app.use("/passes", passRoutes);
 app.use("/parking", parkingRoutes);
 app.use("/history", historyRoutes);
+app.use("/reports", reportRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

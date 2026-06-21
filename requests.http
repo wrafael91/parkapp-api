@@ -604,3 +604,28 @@ Authorization: Bearer {{token}}
 
 GET {{host}}/history?vehicle_type=camion
 Authorization: Bearer {{token}}
+
+### ========================================
+### Reports — ParkApp API
+### ========================================
+
+### -----------------------------------------
+### 52. Reporte de turno — hoy (200)
+### -----------------------------------------
+
+GET {{host}}/reports/shift
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 53. Reporte de turno — rango específico
+### -----------------------------------------
+
+GET {{host}}/reports/shift?from=2026-06-01&to=2026-06-30
+Authorization: Bearer {{token}}
+
+### -----------------------------------------
+### 54. Reporte de turno — fecha inválida (400)
+### -----------------------------------------
+
+GET {{host}}/reports/shift?from=invalid
+Authorization: Bearer {{token}}
