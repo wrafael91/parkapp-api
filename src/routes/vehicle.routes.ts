@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { prisma } from "../lib/prisma";
-import { authGuard } from "../middlewares/auth";
+import { authGuard, adminGuard } from "../middlewares/auth";
 
 const router = Router();
 
@@ -58,6 +58,41 @@ router.get("/:id", authGuard, async (req: Request, res: Response) => {
     res.status(404).json({ error: "Vehículo no encontrado" });
     return;
   }
+
+  res.json({ vehicle });
+});
+
+// PATCH /vehicles/:id (solo admin)
+router.patch("/:id", authGuard, adminGuard, async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    res.status(400).json({ error: "ID debe ser un número" });
+    return;
+  }
+
+  const { plate } = req.body;
+
+  if (!plate || typeof plate !== "string" || !plate.trim()) {
+    res.status(400).json({ error: "plate es requerido" });
+    return;
+  }
+
+  const normalized = plate.trim().toUpperCase();
+
+  const duplicate = await prisma.vehicle.findFirst({
+    where: { plate: normalized, NOT: { id } },
+  });
+
+  if (duplicate) {
+    res.status(409).json({ error: "La placa ya está registrada en otro vehículo" });
+    return;
+  }
+
+  const vehicle = await prisma.vehicle.update({
+    where: { id },
+    data: { plate: normalized },
+  });
 
   res.json({ vehicle });
 });

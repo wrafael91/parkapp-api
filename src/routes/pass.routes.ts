@@ -61,4 +61,25 @@ router.post("/", authGuard, adminGuard, async (req: Request, res: Response) => {
   res.status(201).json({ pass });
 });
 
+// DELETE /passes/:id (solo admin)
+router.delete("/:id", authGuard, adminGuard, async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    res.status(400).json({ error: "ID debe ser un número" });
+    return;
+  }
+
+  const pass = await prisma.monthlyPass.findUnique({ where: { id } });
+
+  if (!pass) {
+    res.status(404).json({ error: "Mensualidad no encontrada" });
+    return;
+  }
+
+  await prisma.monthlyPass.delete({ where: { id } });
+
+  res.json({ message: "Mensualidad eliminada" });
+});
+
 export default router;
