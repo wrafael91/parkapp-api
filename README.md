@@ -4,6 +4,8 @@ Backend de un sistema de gestión de parqueadero. Proyecto de portafolio fullsta
 
 **Live:** `https://parkapp-api.onrender.com` · **Frontend:** `https://parkapp-web.vercel.app`
 
+> **Demo:** usuario `admin` · contraseña `admin123`
+
 ---
 
 ## Stack
