@@ -10,6 +10,7 @@ import parkingRoutes from "./routes/parking.routes";
 import historyRoutes from "./routes/history.routes";
 import reportRoutes from "./routes/report.routes";
 import settingsRoutes from "./routes/settings.routes";
+import userRoutes from "./routes/user.routes";
 import { errorHandler } from "./middlewares/error";
 
 const app = express();
@@ -31,6 +32,7 @@ app.use("/parking", parkingRoutes);
 app.use("/history", historyRoutes);
 app.use("/reports", reportRoutes);
 app.use("/settings", settingsRoutes);
+app.use("/users", userRoutes);
 
 app.use(errorHandler);
 
